@@ -1,0 +1,17 @@
+#!/bin/bash
+echo Splitting splitme.csv into 1m line files
+echo Generating header...
+head -n 1 splitme.csv > header.csv
+echo Removing old splits...
+rm part_*.csv
+rm part_*
+echo Splitting files...
+split -a 4 -l 1000000 splitme.csv part_
+echo Renaming resulting files...
+for i in part_*
+do
+  cp header.csv working.csv
+  cat "$i" >> working.csv
+  mv working.csv "$i.csv"
+  rm "$i"
+done
