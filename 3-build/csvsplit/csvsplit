@@ -3,12 +3,12 @@ echo Splitting splitme.csv into 1m line files
 echo Generating header...
 head -n 1 splitme.csv > header.csv
 echo Removing old splits...
-rm part_*.csv
-rm part_*
+rm part-*.csv
+rm part-*
 echo Splitting files...
-split -a 4 -l 1000000 splitme.csv part_
+split -a 4 -l 1000000 splitme.csv part-
 echo Renaming resulting files...
-for i in part_*
+for i in part-*
 do
   cp header.csv working.csv
   cat "$i" >> working.csv
